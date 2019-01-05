@@ -6,13 +6,9 @@ RUN mv arduino-cli-0.3.3-alpha.preview-linux64 arduino-cli
 
 
 FROM python:slim as arduino-cli
-RUN dpkg --add-architecture i386
-RUN apt-get update && apt-get install -y libc6:i386 && rm -rf /var/lib/apt/lists/*
 COPY --from=0 /arduino-cli /
 COPY .cli-config.yml /
 RUN ./arduino-cli core update-index
-RUN pip3 install adafruit-nrfutil
-RUN ./arduino-cli core install adafruit:nrf52
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
