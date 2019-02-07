@@ -8,8 +8,11 @@ RUN mv arduino-cli-0.3.4-alpha.preview-linux64 arduino-cli
 FROM python:slim as arduino-cli
 COPY --from=0 /arduino-cli /
 COPY .cli-config.yml /
-RUN ./arduino-cli core update-index
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
+WORKDIR /root
+ENV USER root
+RUN /arduino-cli core update-index --debug
+
 
 
