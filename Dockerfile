@@ -2,7 +2,7 @@ FROM ubuntu:latest as downloader
 RUN apt-get update && apt-get install -y wget && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get install -y bzip2 && rm -rf /var/lib/apt/lists/*
 RUN wget https://downloads.arduino.cc/arduino-cli/arduino-cli-latest-linux64.tar.bz2 && tar -xvjf arduino-cli-latest-linux64.tar.bz2 && rm arduino-cli-latest-linux64.tar.bz2
-RUN mv arduino-cli-0.3.4-alpha.preview-linux64 arduino-cli
+RUN mv arduino-cli-0.3.6-alpha.preview-linux64 arduino-cli
 
 
 FROM python:slim as arduino-cli
