@@ -13,7 +13,7 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 WORKDIR /root
 ENV USER root
-RUN /arduino-cli core update-index --debug
+RUN /arduino-cli core update-index --verbose
 
 
 
