@@ -1,4 +1,8 @@
+## Arduino-CLI Version
 
+[Latest Version released by Arduino:](https://img.shields.io/github/release/arduino/arduino-cli.svg) 
+
+Last Triggered with 0.12.0
 
 ## Using the image
 
