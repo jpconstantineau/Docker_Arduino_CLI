@@ -2,7 +2,7 @@
 
 ![Latest Version released by Arduino:](https://img.shields.io/github/release/arduino/arduino-cli.svg) 
 
-Last Triggered with 0.12.1
+Uses the latest Arduino-CLI image 0.14.0 ![Adafruit Library for releases](https://img.shields.io/github/v/release/arduino/arduino-cli.svg)
 
 ## Using the image
 
@@ -15,7 +15,7 @@ Note that to see your sketch, the working directory must be mounted in the image
 ```
 docker pull jpconstantineau/arduino-cli
 
-docker run -it --mount src=${PWD},target=/mnt,type=bind  jpconstantineau/arduino-cli:latest /arduino-cli
+docker run -it --mount src=${PWD},target=/mnt,type=bind  jpconstantineau/arduino-cli:latest arduino-cli
 
 ```
 
