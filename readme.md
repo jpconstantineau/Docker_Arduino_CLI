@@ -2,7 +2,7 @@
 
 ![Latest Version released by Arduino:](https://img.shields.io/github/release/arduino/arduino-cli.svg) 
 
-Uses the latest Arduino-CLI image 0.14.0 ![Adafruit Library for releases](https://img.shields.io/github/v/release/arduino/arduino-cli.svg)
+Uses the latest Arduino-CLI image 0.14.1 ![Adafruit Library for releases](https://img.shields.io/github/v/release/arduino/arduino-cli.svg)
 
 ## Using the image
 
