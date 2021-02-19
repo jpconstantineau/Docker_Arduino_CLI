@@ -2,7 +2,9 @@
 
 ![Latest Version released by Arduino:](https://img.shields.io/github/release/arduino/arduino-cli.svg) 
 
-Uses the latest Arduino-CLI image 0.16.0 ![Adafruit Library for releases](https://img.shields.io/github/v/release/arduino/arduino-cli.svg)
+Uses the latest Arduino-CLI ![releases](https://img.shields.io/github/v/release/arduino/arduino-cli.svg)
+
+There is a githgub action that check for new releases every day.
 
 ## Using the image
 
