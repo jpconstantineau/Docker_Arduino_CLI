@@ -4,6 +4,10 @@ RUN apt-get update && apt-get install -y wget bzip2 curl && rm -rf /var/lib/apt/
 RUN curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
 
 FROM python:slim as arduino-cli
+
+# pyserial is needed for esp32 builds, probably shouldn't be needed but doesn't compile without it
+RUN pip install pyserial 
+
 COPY --from=0 /usr/local/bin/arduino-cli /usr/local/bin/arduino-cli
 COPY .cli-config.yml /
 ENV LC_ALL=C.UTF-8
