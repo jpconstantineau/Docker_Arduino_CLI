@@ -24,7 +24,7 @@ Note that to see your sketch, the working directory must be mounted in the image
 ```
  docker pull ghcr.io/jpconstantineau/docker_arduino_cli:latest
 
-docker run -it --mount src=${PWD},target=/mnt,type=bind  jpconstantineau/arduino-cli:latest arduino-cli
+docker run -it --mount src=${PWD},target=/mnt,type=bind  ghcr.io/jpconstantineau/docker_arduino_cli:latest arduino-cli
 
 ```
 
