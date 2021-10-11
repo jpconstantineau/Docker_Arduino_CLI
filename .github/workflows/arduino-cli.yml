@@ -31,7 +31,7 @@ jobs:
     needs: get-version
     if: ${{ needs.get-version.outputs.modified == 'true' }}
     uses: jpconstantineau/Docker_Arduino_CLI/.github/workflows/build-image-dh.yml@master
-      secrets:
+    secrets:
         DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
         DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
 
