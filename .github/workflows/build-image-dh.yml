@@ -3,6 +3,11 @@ name: Build and publish container to dockerhub
 on:
   workflow_dispatch:
   workflow_call:
+    secrets:
+      DOCKER_HUB_ACCESS_TOKEN:
+        required: true
+      DOCKER_HUB_USER:
+        required: true
 
 jobs:
 
