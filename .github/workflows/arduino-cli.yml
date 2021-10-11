@@ -24,3 +24,77 @@ jobs:
           git config --global user.email 'your-email@users.noreply.github.com'
           git commit -am "New release version - arduino-cli"
           git push
+
+  build-dh:
+    runs-on: ubuntu-latest
+    needs: get-version
+    if: ${{ needs.git-check.outputs.modified == 'true' }}
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
+
+    - name: Build and push container image
+      run: |
+          IMAGE_ID=$(echo jpconstantineau/arduino-cli)
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          CLI_VERSION=$(cat release-versions/arduino-cli-latest.txt)
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          # when the branch is master, replace master with latest
+          [ "$VERSION" == "master" ] && VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          echo CLI_VERSION=$CLI_VERSION
+          # Build and Publish container image
+          docker buildx build --push \
+          --tag $IMAGE_ID:$VERSION \
+          --tag $IMAGE_ID:$CLI_VERSION \
+          --platform linux/amd64,linux/arm/v7,linux/arm64 .
+
+  build-ghcr:
+    runs-on: ubuntu-latest
+    needs: get-version
+    if: ${{ needs.git-check.outputs.modified == 'true' }}
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Log-in to ghcr.io
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Build and push container image
+      run: |
+          IMAGE_ID=$(echo ghcr.io/${{ github.repository }} | tr '[A-Z]' '[a-z]')
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          CLI_VERSION=$(cat release-versions/arduino-cli-latest.txt)
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          # when the branch is master, replace master with latest
+          [ "$VERSION" == "master" ] && VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          echo CLI_VERSION=$CLI_VERSION
+          # Build and Publish container image
+          docker buildx build --push \
+          --tag $IMAGE_ID:$VERSION \
+          --tag $IMAGE_ID:$CLI_VERSION \
+          --platform linux/amd64,linux/arm/v7,linux/arm64 .
