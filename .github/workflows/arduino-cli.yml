@@ -6,6 +6,8 @@ on:
 jobs:
   get-version:
     runs-on: ubuntu-latest
+    outputs:
+      modified: ${{steps.git-check.outputs.modified}}
     steps:
       - uses: actions/checkout@v2
         with:
