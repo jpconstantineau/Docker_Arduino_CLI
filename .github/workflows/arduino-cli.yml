@@ -26,13 +26,11 @@ jobs:
           git push
 
   build-dh:
-    runs-on: ubuntu-latest
     needs: get-version
     if: ${{ needs.git-check.outputs.modified == 'true' }}
     uses: jpconstantineau/Docker_Arduino_CLI/.github/workflows/build-image-dh.yml@master
 
   build-ghcr:
-    runs-on: ubuntu-latest
     needs: get-version
     if: ${{ needs.git-check.outputs.modified == 'true' }}
     uses: jpconstantineau/Docker_Arduino_CLI/.github/workflows/build-image-ghcr.yml@master
